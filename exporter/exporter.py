@@ -146,7 +146,7 @@ def parse_data_metrics(json_data):
             elif label in alert['annotations']:
                 labels[label] = alert['annotations'][label]
         metric_name = '{}_exporter_alert'.format(conf['name'])
-        description = 'Alertmanager alerts'
+        description = 'Alertmanager alerts, "active"=1, "unprocessed"=0, "suppressed"=-1'
         alert_status = alert['status']['state']
         value = conf['alerts_status_map'][alert_status]
         metric = {'metric_name': metric_name, 'labels': labels, 'description': description, 'value': value}
