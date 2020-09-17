@@ -1,0 +1,21 @@
+version: '2'
+services:
+  alertmanager-exporter:
+    image: shalb/alertmanager-exporter:0.0.1
+    volumes:
+      - ./exporter:/opt/exporter
+    restart: always
+    ports:
+      - "127.0.0.1:9753:9753"
+    environment:
+     #- URL=http://prometheus-operator-alertmanager:9093/api/v1/alerts
+      - URL=http://alertmanager:9093/api/v1/alerts
+     #- LABELS_AND_ANNOTATIONS_TO_GET=severity host_priority priority message summary
+     #- HEADER_USER_AGENT=Mozilla/5.0 (X11; Linux x86_64…) Gecko/20100101 Firefox/77.0
+     #- TEST=generic_alerts.json
+     #- TASKS=metrics
+     #- LOG_LEVEL=INFO|DEBUG
+     #- CHECK_TIMEOUT=10
+     #- MAIN_LOOP_SLEEP_INTERVAL=10
+     #- LISTEN_PORT=9753
+   #entrypoint: ["/bin/bash", "-c", "sleep 9999"]

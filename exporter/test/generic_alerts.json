@@ -1,0 +1,25 @@
+{
+    "status": "success",
+    "data": [
+        {
+            "labels": {
+                "alertname": "test alert",
+                "instance": "10.10.10.10:9100",
+                "job": "test job",
+                "server_env": "prod",
+                "severity": "warning"
+            },
+            "annotations": {
+                "message": "test message"
+            },
+            "startsAt": "2020-04-22T12:56:15.470372903Z",
+            "endsAt": "2020-09-17T15:18:45.470372903Z",
+            "generatorURL": "http://prometheus.local.lan/graph?g0.range_input=1h&g0.expr=up%20!%3D%201&g0.tab=1",
+            "status": {
+                "state": "active",
+                "silencedBy": [],
+                "inhibitedBy": []
+            }
+        }
+    ]
+}

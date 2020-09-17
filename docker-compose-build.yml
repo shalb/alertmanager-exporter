@@ -1,0 +1,7 @@
+version: '2'
+services:
+  alertmanager-exporter:
+    build:
+      context: ./
+    image: shalb/alertmanager-exporter:0.0.1
+
