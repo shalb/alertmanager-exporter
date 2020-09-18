@@ -10,7 +10,8 @@ services:
     environment:
      #- URL=http://prometheus-operator-alertmanager:9093/api/v1/alerts
       - URL=http://alertmanager:9093/api/v1/alerts
-     #- LABELS_AND_ANNOTATIONS_TO_GET=severity host_priority priority message summary
+     #- LABELS_AND_ANNOTATIONS_TO_GET=alertname severity host_priority priority message summary hostname
+     #- KEYS_TO_GET=generatorURL
      #- HEADER_USER_AGENT=Mozilla/5.0 (X11; Linux x86_64…) Gecko/20100101 Firefox/77.0
      #- TEST=generic_alerts.json
      #- TASKS=metrics

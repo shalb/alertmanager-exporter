@@ -20,8 +20,9 @@ def get_config():
     '''Get configuration from ENV variables'''
     conf['name'] = 'alertmanager'
     conf['tasks'] = ['metrics']
-    conf['labels_and_annotations_to_get'] = 'severity host_priority priority message summary'.split()
-    env_lists_options = ['tasks', 'labels_and_annotations_to_get']
+    conf['labels_and_annotations_to_get'] = 'alertname severity host_priority priority message summary'.split()
+    conf['keys_to_get'] = list()
+    env_lists_options = ['tasks', 'labels_and_annotations_to_get', 'keys_to_get']
     for opt in env_lists_options:
         opt_val = os.environ.get(opt.upper())
         if opt_val:
@@ -138,8 +139,9 @@ def parse_data_metrics(json_data):
     for alert in json_data['data']:
         log.debug('parse_data_metrics, alert: "{}"'.format(alert))
         labels = dict()
-        labels['alertname'] = alert['labels']['alertname']
-        labels['generator_url'] = alert['generatorURL']
+        for key in conf['keys_to_get']:
+            if key in alert:
+                labels[key] = alert[key]
         for label in conf['labels_and_annotations_to_get']:
             if label in alert['labels']:
                 labels[label] = alert['labels'][label]
