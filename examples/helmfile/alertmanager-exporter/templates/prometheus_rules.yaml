@@ -16,7 +16,7 @@ spec:
           annotations:
             message: "alertmanager-exporter down"
             description: 'Connect to cluster and check if pod: "{{`{{ $labels.pod }}`}}" is running'
-            grafana: "{{ .Values.grafana }}"
+            grafana: "{{ .Values.grafana }}/d/uxfDP1dMz/alerts-list-alertmanager-exporter?orgId=1&fullscreen&panelId=41"
           labels:
             severity: warning
             team: monitoring
@@ -28,7 +28,7 @@ spec:
           annotations:
             message: "alertmanager-exporter has scrape errors"
             description: 'Connect to cluster and check logs for pod: "{{`{{ $labels.pod }}`}}"'
-            grafana: "{{ .Values.grafana }}"
+            grafana: "{{ .Values.grafana }}/d/uxfDP1dMz/alerts-list-alertmanager-exporter?orgId=1&fullscreen&panelId=43"
           labels:
             severity: warning
             team: monitoring
@@ -40,9 +40,7 @@ spec:
           annotations:
             message: "alertmanager-exporter has new known error"
             description: 'Metrics parsing error: "{{`{{ $labels.error }}`}}"'
-            grafana: "{{ .Values.grafana }}"
+            grafana: "{{ .Values.grafana }}/d/uxfDP1dMz/alerts-list-alertmanager-exporter?orgId=1&fullscreen&panelId=49"
           labels:
             severity: warning
             team: monitoring
-
-
