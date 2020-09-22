@@ -1,0 +1,48 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus-operator
+    release: prometheus-operator
+  name: alertmanager-exporter
+  namespace: monitoring
+spec:
+  groups:
+    - name: "alertmanager-exporter alerts"
+      rules:
+        - alert: "alertmanager-exporter down"
+          expr: up{job="alertmanager-exporter"} == 0
+          for: 5m
+          annotations:
+            message: "alertmanager-exporter down"
+            description: 'Connect to cluster and check if pod: "{{`{{ $labels.pod }}`}}" is running'
+            grafana: "{{ .Values.grafana }}"
+          labels:
+            severity: warning
+            team: monitoring
+
+
+        - alert: "alertmanager-exporter scrape error"
+          expr: alertmanager_exporter_up == 0
+          for: 5m
+          annotations:
+            message: "alertmanager-exporter has scrape errors"
+            description: 'Connect to cluster and check logs for pod: "{{`{{ $labels.pod }}`}}"'
+            grafana: "{{ .Values.grafana }}"
+          labels:
+            severity: warning
+            team: monitoring
+
+
+        - alert: "alertmanager-exporter has new known error"
+          expr: alertmanager_exporter_last_metrics_parsing_error != 0
+          for: 5m
+          annotations:
+            message: "alertmanager-exporter has new known error"
+            description: 'Metrics parsing error: "{{`{{ $labels.error }}`}}"'
+            grafana: "{{ .Values.grafana }}"
+          labels:
+            severity: warning
+            team: monitoring
+
+

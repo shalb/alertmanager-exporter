@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager-exporter
+  namespace: monitoring
+  labels:
+    role: alertmanager-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager-exporter
+  template:
+    metadata:
+      labels:
+        role: monitoring
+        app: alertmanager-exporter
+    spec:
+     #imagePullSecrets:
+     #  - name: regcred
+      containers:
+        - name: alertmanager-exporter
+          image: shalb/alertmanager-exporter:0.0.1
+         #imagePullPolicy: Always
+          ports:
+            - containerPort: 9753
+          resources:
+            requests:
+              memory: "0.1Gi"
+              cpu: "0.1"
+            limits:
+              memory: "0.1Gi"
+              cpu: "0.1"
+          env:
+            - name: URL
+              value: "http://prometheus-operator-alertmanager:9093/api/v1/alerts"
+            - name: LABELS_AND_ANNOTATIONS_TO_GET
+              value: "{{ .Values.labels_and_annotations_to_get }}"
+            - name: LOG_LEVEL
+             #value: "DEBUG"
+              value: "INFO"

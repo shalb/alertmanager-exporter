@@ -1,0 +1,4 @@
+apiVersion: v1
+name: alertmanager-exporter
+version: 0.0.1
+description: custom exporter to get alertmanager stats (https://github.com/shalb/alertmanager-exporter)

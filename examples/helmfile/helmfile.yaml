@@ -1,0 +1,18 @@
+helmDefaults:
+  tillerless: true
+  kubeContext: my_cluster
+
+environments:
+  default:
+    values:
+      - helmfile-monitoring.yaml.d/environments/values.yaml
+
+releases:
+  - name: alertmanager-exporter
+    installed: true
+    namespace: monitoring
+    chart: ./alertmanager-exporter
+    version: 0.0.1
+    values:
+      - ./alertmanager-exporter/my_values.yaml.gotmpl
+

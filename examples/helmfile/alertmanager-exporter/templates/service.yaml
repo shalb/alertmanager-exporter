@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager-exporter
+  namespace: monitoring
+  labels:
+    app: alertmanager-exporter
+spec:
+  selector:
+    app: alertmanager-exporter
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 9753
+      targetPort: 9753
+

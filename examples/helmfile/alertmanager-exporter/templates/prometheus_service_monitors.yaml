@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: alertmanager-exporter
+    release: prometheus-operator
+  name: alertmanager-exporter
+  namespace: monitoring
+spec:
+  endpoints:
+  - port: metrics
+    interval: 10s
+    scrapeTimeout: 10s
+  selector:
+    matchLabels:
+      app: alertmanager-exporter
+
